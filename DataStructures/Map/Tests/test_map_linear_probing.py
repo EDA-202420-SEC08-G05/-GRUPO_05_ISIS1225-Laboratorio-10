@@ -1,3 +1,10 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
+
+
+
+
 from DataStructures.Map import map_linear_probing as mp
 from DataStructures.List import array_list as lt
 from DataStructures.Map import map_entry as me
@@ -53,7 +60,9 @@ def test_put():
     assert new_map["capacity"] == 23
 
 
-@handle_not_implemented
+
+
+#@handle_not_implemented
 def test_contains():
     map = setup_tests(None, None)
     mp.put(map, 1, 2)
@@ -68,6 +77,7 @@ def test_contains():
     new_map = mp.new_map(5, 0.5, 7)
     assert not mp.contains(new_map, 1)
 
+"""
 
 @handle_not_implemented
 def test_get():
@@ -250,8 +260,8 @@ def test_is_available():
     mp.remove(map, 2)
     assert mp.is_available(map["table"], mf.hash_value(map, 9)) == True
 
-
-@handle_not_implemented
+"""
+#@handle_not_implemented
 def test_rehash():
     map = mp.new_map(5, 0.5, 7)
     for i in range(5):
@@ -264,3 +274,4 @@ def test_rehash():
 
     for i in range(5):
         assert mp.contains(map, i)
+

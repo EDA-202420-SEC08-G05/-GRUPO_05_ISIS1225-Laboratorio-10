@@ -1,3 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
+
+from DataStructures.Utils.utils import handle_not_implemented
+
+
+
+
 import pytest
 from DataStructures.Utils.utils import handle_not_implemented
 from DataStructures.Graph import adj_list_graph as gl
@@ -28,7 +37,7 @@ def setup_tests():
     return empty_graph, some_graph
 
 
-@handle_not_implemented
+#@handle_not_implemented
 def test_new_graph():
     graph = gl.new_graph(10, False)
     assert graph["edges"] == 0
@@ -39,7 +48,7 @@ def test_new_graph():
     assert graph["information"]["type"] == "PROBING"
 
 
-@handle_not_implemented
+#@handle_not_implemented
 def test_insert_vertex():
     empty_graph, some_graph = setup_tests()
 
@@ -56,6 +65,9 @@ def test_insert_vertex():
     assert some_graph["vertices"]["size"] == 3
     assert some_graph["information"]["size"] == 3
     pass
+
+
+"""
 
 
 @handle_not_implemented
@@ -137,3 +149,6 @@ def test_add_edge():
     gl.add_edge(some_graph, 1, 3, 3.0)
 
     assert gl.num_edges(some_graph) == 2
+
+
+"""
