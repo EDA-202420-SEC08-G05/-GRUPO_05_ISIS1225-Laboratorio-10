@@ -97,15 +97,19 @@ def insert_vertex(my_graph, key_vertex, info_vertex):
     """
     
     # Verificamos si el vértice ya existe en el grafo
-    if key_vertex in my_graph['vertices']:
+    #if mp.get(my_graph['vertices'],key_vertex):
         # Si el vértice ya existe, actualizamos la información asociada
-        my_graph['information'][key_vertex] = info_vertex
-    else:
+        
+    #    mp.put(my_graph['vertices'],key_vertex,al.new_list())
+        
+    #else:
         # Si el vértice no existe, lo agregamos al grafo
-        my_graph['vertices'][key_vertex] = []  # Inicializamos la lista de arcos adyacentes
-        my_graph['information'][key_vertex] = info_vertex  # Insertamos la información del vértice
-        if my_graph['in_degree'] is not None:
-            my_graph['in_degree'][key_vertex] = 0  # Si el grafo no es dirigido, el grado de entrada es 0
+       # my_graph['vertices'][key_vertex] = []  # Inicializamos la lista de arcos adyacentes
+    mp.put(my_graph['vertices'],key_vertex,al.new_list())
+       # my_graph['information'][key_vertex] = info_vertex  # Insertamos la información del vértice
+    mp.put(my_graph['information'],key_vertex,info_vertex)
+    if my_graph['in_degree'] is not None:
+        my_graph['in_degree'][key_vertex] = 0  # Si el grafo no es dirigido, el grado de entrada es 0
         
     
     return my_graph   

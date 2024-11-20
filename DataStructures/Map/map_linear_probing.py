@@ -28,6 +28,16 @@ def new_map(num_elements, load_factor, prime=109345121):
     :return: Un nuevo map implementado con Linear Probing
     :rtype: map_linear_probing
     """
+    
+    
+    if num_elements == 0:
+        
+        num_elements = num_elements + 5
+    
+    
+    
+    
+    
     # Calcula la capacidad basada en el número de elementos y el factor de carga
     capacity = mf.next_prime(int(num_elements / load_factor))
     
@@ -117,13 +127,13 @@ def put(my_map, key, value):
     
     return my_map
 
-"""
+
 
 ##############################################################################
 
 
 def put(my_map, key, value):
-    """
+    ""
     Ingresa una pareja llave-valor a la tabla de hash. Si la llave ya existe en la tabla, se reemplaza el valor.
 
     :param my_map: El map a donde se guarda la pareja llave-valor
@@ -135,7 +145,7 @@ def put(my_map, key, value):
 
     :return: El map actualizado
     :rtype: map_linear_probing
-    """
+    ""
     # Calcular la posición hash inicial
     hash_position = mf.hash_value(my_map, key) % my_map['capacity']
     
@@ -172,6 +182,7 @@ def put(my_map, key, value):
     return my_map
 
 
+"""
 
 
 def contains(my_map, key):
@@ -312,4 +323,68 @@ def rehash(my_map):
     nuevo_mapa['current factor'] =  my_map["size"] / nuevo_mapa["capacity"] 
     
     return nuevo_mapa
+
+
+
+def put(my_map, key, value):
+    """
+    Ingresa una pareja llave-valor a la tabla de hash. Si la llave ya existe en la tabla, se reemplaza el valor.
+
+    :param my_map: El map a donde se guarda la pareja llave-valor
+    :type my_map: map_linear_probing
+    :param key: La llave asociada a la pareja
+    :type key: any
+    :param value: El valor asociado a la pareja
+    :type value: any
+
+    :return: El map actualizado
+    :rtype: map_linear_probing
+    """
+    # Calcular la posición hash inicial
+    hash_position = mf.hash_value(my_map, key) % my_map['capacity']
+    
+    # Explorar la tabla usando Linear Probing
+    original_position = hash_position
+    while my_map['table']['elements'][hash_position] is not None:
+        current_entry = my_map['table']['elements'][hash_position]
+        
+        # Si la llave ya existe, reemplazamos el valor
+        if me.get_key(current_entry) == key:
+            me.set_value(current_entry, value)
+            return my_map
+        
+        # Si la posición está ocupada por una entrada distinta, seguimos buscando
+        hash_position = (hash_position + 1) % my_map['capacity']
+        
+        # Si hemos recorrido toda la tabla, termina el ciclo
+        if hash_position == original_position:
+            raise Exception("La tabla de hash está llena, no se puede insertar más elementos.")
+    
+    # Si encontramos una posición vacía, insertamos la nueva pareja (key, value)
+    new_entry = me.new_map_entry(key, value)
+    my_map['table']['elements'][hash_position] = new_entry  # Insertar la nueva entrada en la posición calculada
+    
+    # Incrementar el tamaño de la tabla y actualizar el factor de carga
+    my_map['size'] += 1
+    my_map['current_factor'] = my_map['size'] / my_map['capacity']
+    
+    # Verificar si es necesario redimensionar la tabla (rehashing)
+    if my_map['current_factor'] > my_map['limit_factor']:
+        nuevo_mapa = rehash(my_map)
+        my_map['prime'] =  nuevo_mapa['prime']
+        my_map['capacity']      =     nuevo_mapa['capacity'] 
+        my_map['scale']         =   nuevo_mapa['scale']
+        my_map['shift']         =     nuevo_mapa['shift'] 
+        my_map['table']         =       nuevo_mapa['table'] 
+        my_map['current_factor']=     nuevo_mapa['current_factor']
+        my_map['limit_factor']  =      nuevo_mapa['limit_factor']
+        my_map['size']          =      nuevo_mapa['size']
+        my_map['type']          =     nuevo_mapa['type']  
+        
+        
+        #print(my_map['current_factor'],my_map['size'],my_map['capacity'])
+        return my_map
+        
+    return my_map
+
 

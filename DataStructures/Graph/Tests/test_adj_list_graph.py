@@ -16,9 +16,10 @@ from DataStructures.Graph import edge
 
 
 def setup_tests():
-    empty_graph = gl.new_graph()
-    some_graph = gl.new_graph()
-
+    # a ambos le puse un cero porque sino no me tenia sentido 
+    empty_graph = gl.new_graph(0)
+    some_graph = gl.new_graph(0)
+    ###########################################################
     ed_1_2 = edge.new_edge(1, 2, 3.0)
     ed_2_1 = edge.new_edge(2, 1, 3.0)
 
