@@ -388,3 +388,124 @@ def put(my_map, key, value):
     return my_map
 
 
+def get(my_map, key):
+    """
+    Retorna el valor asociado a la llave key en el map.
+
+    :param my_map: El map a examinar.
+    :type my_map: map_linear_probing
+    :param key: La llave a buscar.
+    :type key: any
+
+    :return: El valor asociado a la llave key, o None si la llave no se encuentra.
+    :rtype: any
+    """
+    # Calcular la posición hash inicial
+    hash_position = mf.hash_value(my_map, key) % my_map['capacity']
+    
+    # Explorar la tabla usando Linear Probing
+    original_position = hash_position
+    while my_map['table']['elements'][hash_position] is not None:
+        current_entry = my_map['table']['elements'][hash_position]
+        
+        # Si la llave coincide, retornamos el valor asociado
+        if me.get_key(current_entry) == key:
+            return me.get_value(current_entry)
+        
+        # Continuar buscando en la siguiente posición
+        hash_position = (hash_position + 1) % my_map['capacity']
+        
+        # Si hemos recorrido toda la tabla, salimos del ciclo
+        if hash_position == original_position:
+            break
+    
+    # Si no encontramos la llave, retornamos None
+    return None
+
+def key_set(my_map):
+    """
+    Retorna una lista con todas las llaves de la tabla de hash.
+
+    :param my_map: El map a examinar.
+    :type my_map: map_linear_probing
+
+    :return: Lista de todas las llaves presentes en la tabla de hash.
+    :rtype: array_list
+    """
+    # Crear una lista vacía para almacenar las llaves
+    keys = al.new_list()
+
+    # Recorrer todas las posiciones en la tabla
+    for entry in my_map['table']['elements']:
+        # Si la posición no está vacía, obtener la llave y agregarla a la lista
+        if entry is not None:
+            al.add_last(keys, me.get_key(entry))
+    
+    return keys
+
+def remove(my_map, key):
+    """
+    Elimina la pareja llave-valor del map.
+
+    :param my_map: El map a examinar.
+    :type my_map: map_linear_probing
+    :param key: La llave a eliminar.
+    :type key: any
+
+    :return: El map sin la llave key.
+    :rtype: map_linear_probing
+    """
+    # Calcular la posición hash inicial
+    hash_position = mf.hash_value(my_map, key) % my_map['capacity']
+    
+    # Explorar la tabla usando Linear Probing
+    original_position = hash_position
+    while my_map['table']['elements'][hash_position] is not None:
+        current_entry = my_map['table']['elements'][hash_position]
+        
+        # Si encontramos la llave, la eliminamos
+        if me.get_key(current_entry) == key:
+            my_map['table']['elements'][hash_position] = None
+            my_map['size'] -= 1
+            
+            # Rehash de los elementos restantes para mantener la consistencia
+            next_position = (hash_position + 1) % my_map['capacity']
+            while my_map['table']['elements'][next_position] is not None:
+                entry_to_rehash = my_map['table']['elements'][next_position]
+                my_map['table']['elements'][next_position] = None
+                my_map['size'] -= 1  # Temporalmente reducimos el tamaño
+                put(my_map, me.get_key(entry_to_rehash), me.get_value(entry_to_rehash))
+                next_position = (next_position + 1) % my_map['capacity']
+            
+            return my_map
+        
+        # Continuar buscando en caso de colisión
+        hash_position = (hash_position + 1) % my_map['capacity']
+        if hash_position == original_position:
+            break
+    
+    # Si no encontramos la llave, no hacemos nada
+    return my_map
+
+
+def value_set(my_map):
+    """
+    Retorna una lista con todos los valores de la tabla de hash.
+
+    :param my_map: El map a examinar.
+    :type my_map: map_linear_probing
+
+    :return: Lista de valores.
+    :rtype: array_list
+    """
+    # Crear una lista vacía para almacenar los valores
+    values_list = al.new_list()
+
+    # Recorrer la tabla de hash
+    for entry in my_map['table']['elements']:
+        if entry is not None:  # Ignorar posiciones vacías
+            value = me.get_value(entry)
+            al.add_last(values_list,value)
+
+    return values_list
+

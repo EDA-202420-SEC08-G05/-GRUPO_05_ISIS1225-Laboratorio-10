@@ -17,8 +17,8 @@ from DataStructures.Graph import edge
 
 def setup_tests():
     # a ambos le puse un cero porque sino no me tenia sentido 
-    empty_graph = gl.new_graph(0)
-    some_graph = gl.new_graph(0)
+    empty_graph = gl.new_graph()
+    some_graph = gl.new_graph()
     ###########################################################
     ed_1_2 = edge.new_edge(1, 2, 3.0)
     ed_2_1 = edge.new_edge(2, 1, 3.0)
@@ -68,10 +68,10 @@ def test_insert_vertex():
     pass
 
 
-"""
 
 
-@handle_not_implemented
+
+#@handle_not_implemented
 def test_num_vertices():
     empty_graph, some_graph = setup_tests()
 
@@ -79,7 +79,7 @@ def test_num_vertices():
     assert gl.num_vertices(some_graph) == 2
 
 
-@handle_not_implemented
+#@handle_not_implemented
 def test_num_edges():
     empty_graph, some_graph = setup_tests()
 
@@ -88,7 +88,9 @@ def test_num_edges():
     assert gl.num_edges(some_graph) == 1
 
 
-@handle_not_implemented
+
+
+#@handle_not_implemented
 def test_vertices():
     empty_graph, some_graph = setup_tests()
 
@@ -102,7 +104,7 @@ def test_vertices():
     assert vertices["elements"] is not None
 
 
-@handle_not_implemented
+#@handle_not_implemented
 def test_edges():
     empty_graph, some_graph = setup_tests()
 
@@ -115,6 +117,7 @@ def test_edges():
     assert lt.size(edges) == 1
     assert edges["elements"] is not None
 
+"""
 
 @handle_not_implemented
 def test_degree():
@@ -137,8 +140,8 @@ def test_in_degree():
     assert gl.in_degree(some_graph, 1) == 1
     assert gl.in_degree(some_graph, 2) == 1
 
-
-@handle_not_implemented
+"""
+#@handle_not_implemented
 def test_add_edge():
     empty_graph, some_graph = setup_tests()
 
@@ -152,4 +155,3 @@ def test_add_edge():
     assert gl.num_edges(some_graph) == 2
 
 
-"""

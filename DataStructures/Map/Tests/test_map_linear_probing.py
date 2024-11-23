@@ -77,9 +77,9 @@ def test_contains():
     new_map = mp.new_map(5, 0.5, 7)
     assert not mp.contains(new_map, 1)
 
-"""
 
-@handle_not_implemented
+
+#@handle_not_implemented
 def test_get():
     map = setup_tests(None, None)
     mp.put(map, 1, 2)
@@ -94,7 +94,10 @@ def test_get():
     assert mp.get(new_map, 1) is None
 
 
-@handle_not_implemented
+
+
+
+#@handle_not_implemented
 def test_remove():
     map = setup_tests(1, 0)
     mp.put(map, 1, 2)
@@ -117,6 +120,9 @@ def test_remove():
     mp.remove(new_map, 1)
     assert new_map["size"] == 0
     assert not mp.contains(new_map, 1)
+
+
+"""
 
 
 @handle_not_implemented
@@ -144,8 +150,9 @@ def test_is_empty():
     new_map = mp.new_map(5, 0.5, 7)
     assert mp.is_empty(new_map)
 
+"""
 
-@handle_not_implemented
+#@handle_not_implemented
 def test_key_set():
     map = setup_tests(None, None)
     mp.put(map, 1, 2)
@@ -177,7 +184,10 @@ def test_key_set():
     assert lt.size(key_set) == 0
 
 
-@handle_not_implemented
+
+
+
+#@handle_not_implemented
 def test_value_set():
     map = setup_tests(None, None)
     mp.put(map, 1, 2)
@@ -208,6 +218,8 @@ def test_value_set():
     value_set = mp.value_set(new_map)
     assert lt.size(value_set) == 0
 
+
+"""
 
 @handle_not_implemented
 def test_find_slot():
